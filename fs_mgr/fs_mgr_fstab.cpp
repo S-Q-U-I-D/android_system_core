@@ -83,6 +83,7 @@ static struct flag_list fs_mgr_flags[] = {
     {"encryptable=", MF_CRYPT},
     {"forceencrypt=", MF_FORCECRYPT},
     {"fileencryption=", MF_FILEENCRYPTION},
+    {"wrappedkey", MF_WRAPPEDKEY},
     {"forcefdeorfbe=", MF_FORCEFDEORFBE},
     {"keydirectory=", MF_KEYDIRECTORY},
     {"nonremovable", MF_NONREMOVABLE},
@@ -114,6 +115,7 @@ static struct flag_list fs_mgr_flags[] = {
 #define EM_ICE          2
 #define EM_AES_256_CTS  3
 #define EM_AES_256_HEH  4
+#define EM_ADIANTUM     5
 
 static const struct flag_list file_contents_encryption_modes[] = {
     {"aes-256-xts", EM_AES_256_XTS},
@@ -993,4 +995,9 @@ int fs_mgr_is_quota(const struct fstab_rec* fstab) {
 int fs_mgr_has_sysfs_path(const struct fstab_rec *fstab)
 {
     return fstab->fs_mgr_flags & MF_SYSFS;
+}
+
+int fs_mgr_is_wrapped_key_supported(const struct fstab_rec *fstab)
+{
+    return fstab->fs_mgr_flags & MF_WRAPPEDKEY;
 }
